@@ -20,8 +20,9 @@ export default defineComponent({
   },
   methods: {
     logout() {
+      console.log('logout');
       localStorage.clear();
-      this.$router.push('/about');
+      this.$router.push('/login');
     }
   }
 });

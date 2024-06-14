@@ -1,7 +1,7 @@
 // tests/unit/SignUp.spec.ts
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { IUser, SexValue } from '@/interfaces/user.interface';
-import RegistrationComponent from "@/components/RegistrationComponent.vue";
+import { SexValue } from "../../src/interfaces/user.interface";
+import RegistrationComponent from "../../src/components/RegistrationComponent.vue";
 
 describe('SignUp.vue', () => {
   let wrapper: VueWrapper<any>;
@@ -21,7 +21,7 @@ describe('SignUp.vue', () => {
     });
   });
 
-  it('renders sign up form', () => {
+  it('should create', () => {
     expect(wrapper.find('h3').text()).toBe('Sign Up');
   });
 

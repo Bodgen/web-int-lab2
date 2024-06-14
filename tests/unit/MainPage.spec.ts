@@ -18,7 +18,6 @@ describe('MainComponent', () => {
 
 
   beforeAll(() => {
-    // Додаємо фіктивний pinia до глобального контексту тесту
     (window as any).pinia = pinia;
   });
 
@@ -96,16 +95,12 @@ describe('MainComponent', () => {
     store.addPost({ id: postId, title: 'title',
       description: 'edit',
       comments: []})
-    // Визначаємо функцію showEditMode в об'єкті компоненту модального вікна
     wrapper.vm.$refs.addPostModal.showEditMode = jest.fn();
 
-    // Перевіряємо, що showEditMode був визначений правильно
     expect(wrapper.vm.$refs.addPostModal.showEditMode).toBeDefined();
 
-    // Викликаємо метод editPost, який, в свою чергу, викликає showEditMode
     wrapper.vm.editPost(postId);
 
-    // Перевіряємо, що showEditMode був викликаний з правильним postId
     expect(wrapper.vm.$refs.addPostModal.showEditMode).toHaveBeenCalledWith(postId);
   });
 
@@ -113,16 +108,12 @@ describe('MainComponent', () => {
     const postId = 1;
     const commentNote = '';
 
-    // Додаємо пост, щоб мати дані для тесту
     store.addPost({ id: postId, title: 'Test Post', description: 'Test Description', comments: [] });
 
-    // Задаємо коментар
     wrapper.setData({ commentNote: commentNote });
 
-    // Викликаємо метод додавання коментаря
     await wrapper.vm.addComment(postId);
 
-    // Отримуємо пост зі зміненим коментарем
     const postWithComment = store.getPostById(postId);
 
     // Перевіряємо, що кількість коментарів у пості дорівнює 0

@@ -2,6 +2,15 @@ import { shallowMount } from '@vue/test-utils';
 import ProfileComponent from '@/components/ProfileComponent.vue';
 
 describe('ProfileComponent', () => {
+
+  const userData = {
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    sex: 'Male',
+    birth: '1990-01-01'
+  };
+  localStorage.setItem('user', JSON.stringify(userData));
+
   it('renders correctly', () => {
     const wrapper = shallowMount(ProfileComponent);
     expect(wrapper.exists()).toBe(true);
@@ -14,25 +23,29 @@ describe('ProfileComponent', () => {
   });
 
   it('calls logout method when "Logout" button is clicked', async () => {
-    // Мокуємо метод logout
-    const logoutMock = jest.fn();
+
+    const localStorageMock = {
+      getItem: jest.fn(),
+      clear: jest.fn()
+    };
+
     const wrapper = shallowMount(ProfileComponent, {
-      // Передаємо мок функції як проп
       global: {
         mocks: {
-          logout: logoutMock
+          $router: {
+            push: jest.fn()
+          },
+          localStorage: localStorageMock,
         }
       }
     });
 
-    // Спочатку перевіряємо, чи функція logout не була викликана
-    expect(logoutMock).not.toHaveBeenCalled();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.user).toEqual(userData);
 
-    // Симулюємо клік на кнопку "Logout"
     const logoutButton = wrapper.findAll('.btn-outline-secondary')[1];
     await logoutButton.trigger('click');
 
-    // Тепер перевіряємо, чи була викликана функція logout
-    expect(logoutMock).toHaveBeenCalled();
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/login');
   });
 });

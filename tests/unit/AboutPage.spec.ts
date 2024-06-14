@@ -23,13 +23,11 @@ describe('AboutComponent.vue', () => {
     const navLinks = wrapper.findAllComponents(RouterLinkStub);
     expect(navLinks).toHaveLength(2);
 
-    // Перевірка правильності маршрутів для кожної кнопки
     expect(navLinks[0].props('to')).toBe('/main');
     expect(navLinks[1].props('to')).toBe('/profile');
   });
 
   it('should render the app logo and title correctly', () => {
-    // Перевірка наявності логотипу та заголовка
     const logo = wrapper.find('.logo');
     expect(logo.exists()).toBe(true);
     expect(logo.find('svg').exists()).toBe(true);
@@ -37,14 +35,12 @@ describe('AboutComponent.vue', () => {
   });
 
   it('should render the about app card correctly', () => {
-    // Перевірка наявності та тексту карточки "ABOUT APP"
     const aboutCard = wrapper.find('.about-app-card');
     expect(aboutCard.exists()).toBe(true);
     expect(aboutCard.find('.card-header').text()).toBe('ABOUT APP');
   });
 
   it('should render the description of the app correctly', () => {
-    // Перевірка наявності та тексту опису додатка
     const appDescription = wrapper.find('.card-body');
     expect(appDescription.exists()).toBe(true);
     expect(appDescription.text()).toContain('Blog App');

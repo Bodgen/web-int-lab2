@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { SexValue } from "../interfaces/user.interface";
+import { SexValue } from "@/interfaces/user.interface";
 
 export default {
   data() {
